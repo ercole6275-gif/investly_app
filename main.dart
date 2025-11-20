@@ -90,7 +90,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(28),
                   child: Image.asset(
-                    'assets/logo_investly.png',
+                    'assets/logo_investly.PNG',
                     width: 72,
                     height: 72,
                     fit: BoxFit.cover,
