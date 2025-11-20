@@ -11,12 +11,25 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+
+      - name: Generate Flutter project structure
+        run: |
+          # Salva il tuo main.dart personalizzato, se esiste
+          if [ -f lib/main.dart ]; then
+            cp lib/main.dart /tmp/main_backup.dart
+          fi
+          # Crea un progetto Flutter completo (android + web)
+          flutter create . --platforms android,web --overwrite
+          # Rimetti il tuo main.dart
+          if [ -f /tmp/main_backup.dart ]; then
+            mv /tmp/main_backup.dart lib/main.dart
+          fi
 
       - name: Flutter pub get
         run: flutter pub get
@@ -28,13 +41,13 @@ jobs:
         run: flutter build web --release
 
       - name: Upload APK artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
       - name: Upload Web artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: web-build
           path: build/web
