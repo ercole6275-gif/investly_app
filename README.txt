@@ -1,1 +1,0 @@
-Android structure placeholder. Replace with flutter create output on machine.
